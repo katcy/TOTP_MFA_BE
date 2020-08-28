@@ -2,6 +2,7 @@ const express = require("express");
 
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const env = require("dotenv").config();
 
 // const cors = require("cors");
 const Speakeasy = require("speakeasy");
@@ -9,10 +10,10 @@ const Speakeasy = require("speakeasy");
 const User = require("./models/UserModel");
 const Session = require("./models/SessionModel");
 
-mongoose.connect(
-  "mongodb+srv://katcy:Neesama@143@katcy.jlmvn.mongodb.net/MFA?retryWrites=true&w=majority",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect(process.env.MONGO, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = express();
 
@@ -107,7 +108,7 @@ app.post("/verify", (req, res) => {
       res.send(404);
     });
 });
-
-app.listen(5000, () => {
-  console.log("server started at 5000");
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`server started at ${port}`);
 });
