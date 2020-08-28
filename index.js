@@ -21,8 +21,11 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/signin", (req, res) => {
-  const { username, pwd } = req.body;
-  User.findOne({ username: username })
+  const { username } = req.body;
+  const [apiUsername, pwd] = Buffer.from(username)
+    .toString("base64")
+    .split(":");
+  User.findOne({ username: apiUsername })
     .then((user) => {
       const isSame = bcrypt.compare(pwd, user.password);
       if (isSame) {
