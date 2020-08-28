@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const env = require("dotenv").config();
 
-// const cors = require("cors");
+const cors = require("cors");
 const Speakeasy = require("speakeasy");
 
 const User = require("./models/UserModel");
@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO, {
 
 const app = express();
 
-//app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 app.post("/signin", (req, res) => {
