@@ -40,7 +40,8 @@ app.post("/signin", (req, res) => {
         res.send(403);
       }
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       res.send(404);
     });
 });
